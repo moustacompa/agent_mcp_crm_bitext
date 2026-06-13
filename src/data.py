@@ -131,6 +131,9 @@ def prepare_dataset(
     df = clean_dataset(load_bitext_dataset(csv_path))
     train_df, val_df, test_df = split_dataset(df)
 
+    for output_path in (train_csv, val_csv, test_csv, train_jsonl, val_jsonl):
+        Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+
     train_df.to_csv(train_csv, index=False)
     val_df.to_csv(val_csv, index=False)
     test_df.to_csv(test_csv, index=False)

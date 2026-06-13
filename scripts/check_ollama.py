@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from src.crm_agent.ollama import check_ollama_running
+import bootstrap  # noqa: F401
+
+from src.ollama import check_ollama_running
 
 
 def main() -> None:

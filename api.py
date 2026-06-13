@@ -11,9 +11,9 @@ from typing import Optional
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-from src.crm_agent import CRMAgent, INTENT_TO_TOOL, MCPTools, load_classifier
-from src.crm_agent.config import CLASSIFIER_PATH, DEFAULT_OLLAMA_BASE_URL, DEFAULT_OLLAMA_MODEL
-from src.crm_agent.ollama import create_ollama_llm
+from src import CRMAgent, INTENT_TO_TOOL, MCPTools, load_classifier
+from src.config import CLASSIFIER_PATH, DEFAULT_OLLAMA_BASE_URL, DEFAULT_OLLAMA_MODEL, TRANSFORMER_CLASSIFIER_DIR
+from src.ollama import create_ollama_llm
 
 
 app = FastAPI(
@@ -44,7 +44,20 @@ class ChatResponse(BaseModel):
 
 
 sessions: dict[str, CRMAgent] = {}
-classifier = load_classifier(CLASSIFIER_PATH)
+
+
+def load_intent_classifier():
+    backend = os.getenv("CRM_CLASSIFIER_BACKEND", "tfidf").lower()
+    if backend == "transformer":
+        from src.transformer_classifier import load_transformer_classifier
+
+        return load_transformer_classifier(TRANSFORMER_CLASSIFIER_DIR)
+    if backend == "tfidf":
+        return load_classifier(CLASSIFIER_PATH)
+    raise RuntimeError("CRM_CLASSIFIER_BACKEND doit valoir 'tfidf' ou 'transformer'.")
+
+
+classifier = load_intent_classifier()
 
 
 def build_agent() -> CRMAgent:

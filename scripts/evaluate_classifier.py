@@ -7,15 +7,23 @@ import pandas as pd
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
-from src.crm_agent.classifier import evaluate_classifier, load_classifier
+import bootstrap  # noqa: F401
+
+from src.classifier import evaluate_classifier, load_classifier
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Evaluate the intent classifier.")
     parser.add_argument("--plot", action="store_true", help="Save confusion_matrix.png for top intents.")
+    parser.add_argument("--classifier-backend", choices=["tfidf", "transformer"], default="tfidf")
     args = parser.parse_args()
 
-    classifier = load_classifier()
+    if args.classifier_backend == "transformer":
+        from src.transformer_classifier import load_transformer_classifier
+
+        classifier = load_transformer_classifier()
+    else:
+        classifier = load_classifier()
     metrics = evaluate_classifier(classifier)
     print(f"Accuracy globale: {metrics['accuracy']:.4f}")
     print(f"Confiance moyenne: {metrics['mean_confidence']:.4f}")

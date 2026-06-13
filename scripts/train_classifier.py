@@ -1,7 +1,9 @@
 from __future__ import annotations
 
-from src.crm_agent.classifier import train_classifier
-from src.crm_agent.config import CLASSIFIER_PATH
+import bootstrap  # noqa: F401
+
+from src.classifier import train_classifier
+from src.config import CLASSIFIER_PATH
 
 
 def main() -> None:

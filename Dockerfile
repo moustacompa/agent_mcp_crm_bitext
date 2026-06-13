@@ -7,7 +7,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY api.py .
 COPY src ./src
-COPY intent_classifier.pkl .
+COPY data/intent_classifier.pkl ./data/intent_classifier.pkl
 
 EXPOSE 8000
 

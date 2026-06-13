@@ -5,7 +5,9 @@ from collections import Counter
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from src.crm_agent.data import count_templates, load_bitext_dataset
+import bootstrap  # noqa: F401
+
+from src.data import count_templates, load_bitext_dataset
 
 
 def main() -> None:

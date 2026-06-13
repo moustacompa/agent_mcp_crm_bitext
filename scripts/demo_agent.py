@@ -2,9 +2,11 @@ from __future__ import annotations
 
 import argparse
 
-from src.crm_agent import CRMAgent, INTENT_TO_TOOL, MCPTools, load_classifier
-from src.crm_agent.config import DEFAULT_OLLAMA_BASE_URL, FALLBACK_OLLAMA_MODEL
-from src.crm_agent.ollama import create_ollama_llm
+import bootstrap  # noqa: F401
+
+from src import CRMAgent, INTENT_TO_TOOL, MCPTools, load_classifier
+from src.config import DEFAULT_OLLAMA_BASE_URL, FALLBACK_OLLAMA_MODEL
+from src.ollama import create_ollama_llm
 
 
 MESSAGES = [
@@ -20,10 +22,17 @@ def main() -> None:
     parser.add_argument("--no-ollama", action="store_true", help="Use fallback responses without LLM.")
     parser.add_argument("--model", default=FALLBACK_OLLAMA_MODEL, help="Ollama model name.")
     parser.add_argument("--base-url", default=DEFAULT_OLLAMA_BASE_URL, help="Ollama base URL.")
+    parser.add_argument("--classifier-backend", choices=["tfidf", "transformer"], default="tfidf")
     args = parser.parse_args()
 
     llm = None if args.no_ollama else create_ollama_llm(model=args.model, base_url=args.base_url)
-    agent = CRMAgent(llm=llm, intent_classifier=load_classifier(), tools=MCPTools(), intent_to_tool=INTENT_TO_TOOL)
+    if args.classifier_backend == "transformer":
+        from src.transformer_classifier import load_transformer_classifier
+
+        classifier = load_transformer_classifier()
+    else:
+        classifier = load_classifier()
+    agent = CRMAgent(llm=llm, intent_classifier=classifier, tools=MCPTools(), intent_to_tool=INTENT_TO_TOOL)
 
     for message in MESSAGES:
         print(f"Utilisateur: {message}")

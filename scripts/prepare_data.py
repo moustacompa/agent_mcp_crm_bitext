@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import argparse
 
-from src.crm_agent.data import prepare_dataset
+import bootstrap  # noqa: F401
+
+from src.data import prepare_dataset
 
 
 def main() -> None:
@@ -16,8 +18,8 @@ def main() -> None:
     print(f"Train: {len(train_df)} exemples")
     print(f"Validation: {len(val_df)} exemples")
     print(f"Test: {len(test_df)} exemples")
-    print("Fichiers crees: bitext_train.csv, bitext_val.csv, bitext_test.csv")
-    print("Fichiers JSONL crees: bitext_train_formatted.jsonl, bitext_val_formatted.jsonl")
+    print("Fichiers crees dans data/: bitext_train.csv, bitext_val.csv, bitext_test.csv")
+    print("Fichiers JSONL crees dans data/: bitext_train_formatted.jsonl, bitext_val_formatted.jsonl")
 
 
 if __name__ == "__main__":

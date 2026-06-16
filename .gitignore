@@ -187,3 +187,8 @@ data/*.pkl
 data/*_intent_model/
 data/logs/
 confusion_matrix.png
+
+# uv
+.python-version
+pyproject.toml
+uv.lock

@@ -27,6 +27,12 @@ data/Bitext_Sample_Customer_Support_Training_Dataset_27K_responses-v11_1.csv
 
 Vous pouvez aussi fournir un autre chemin avec l'option `--csv-path` à l'étape suivante.
 
+Tout comme vous pouvez lancez le script suivant pour télécharger et sauvegarder automatiquement le fichier csv:
+
+```bash
+python scripts/download_dataset.py
+```
+
 ### Étape 3 : préparer les données
 
 Nettoyer les templates, créer les splits train/validation/test et générer les fichiers JSONL :

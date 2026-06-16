@@ -130,6 +130,100 @@ Après avoir généré `data/intent_classifier.pkl` :
 docker build -t agent-crm .
 docker run -p 8000:8000 -e CRM_AGENT_USE_OLLAMA=false agent-crm
 ```
+## Interface Streamlit
+
+Une interface Streamlit a été ajoutée afin de rendre l’agent MCP CRM interactif et facilement démontrable.
+
+### Objectif
+
+L’objectif de cette interface est de permettre à l’utilisateur de tester directement des messages clients et de visualiser les résultats produits par le pipeline de classification et de routage MCP.
+
+Le flux global est le suivant :
+
+```text
+Message client
+      ↓
+Classification de l’intent
+      ↓
+Calcul du score de confiance
+      ↓
+Appel du tool MCP correspondant
+      ↓
+Affichage de la réponse CRM
+      ↓
+Mise à jour du dashboard de session
+```
+
+### Fonctionnalités principales
+
+* Saisie d’un message client personnalisé.
+* Exemples de messages clients adaptés aux intents disponibles.
+* Connexion à l’API FastAPI.
+* Affichage de l’intent détecté par le classificateur.
+* Affichage du score de confiance.
+* Seuil de confiance configurable pour recommander une escalade vers un agent humain.
+* Affichage du tool MCP appelé.
+* Affichage du résultat technique retourné par le tool CRM.
+* Dashboard de session avec :
+
+  * nombre de messages analysés ;
+  * confiance moyenne ;
+  * nombre d’intents détectés ;
+  * nombre d’escalades recommandées.
+* Historique technique exportable en CSV.
+
+### Lancer l’API FastAPI
+
+Dans un premier terminal :
+
+```powershell
+$env:CRM_AGENT_USE_OLLAMA="false"
+$env:CRM_CLASSIFIER_BACKEND="tfidf"
+python -m uvicorn api:app --reload --port 8000
+```
+
+L’API sera disponible sur :
+
+```text
+http://127.0.0.1:8000
+```
+
+### Lancer l’interface Streamlit
+
+Dans un deuxième terminal :
+
+```powershell
+python -m streamlit run streamlit_app.py
+```
+
+L’interface sera disponible sur :
+
+```text
+http://localhost:8501
+```
+
+### Exemple de test
+
+Message client :
+
+```text
+I want to cancel my order number 12345
+```
+
+Résultat attendu dans l’interface :
+
+```text
+Intent détecté : cancel_order
+Tool MCP appelé : cancel_order
+Score de confiance affiché
+Réponse CRM générée
+Dashboard de session mis à jour
+```
+
+### Remarque
+
+L’interface utilise un seuil de confiance fixé par défaut à `0.70`.
+Si la confiance du modèle est inférieure à ce seuil, l’interface recommande une redirection vers un agent humain.
 
 ## Variante Transformer optionnelle
 

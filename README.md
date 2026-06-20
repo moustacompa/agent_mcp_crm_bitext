@@ -1,6 +1,6 @@
 # Agent MCP CRM Bitext
 
-Ce projet est une version modulaire du notebook `diallo_agent_mcp_crm_bitext.ipynb`.
+Ceci est un projet académique fait dansle cadre du mini-projet INE. 
 Il prépare le dataset Bitext Customer Support, entraîne un classificateur
 d'intentions, mappe les intentions vers des tools MCP CRM, puis expose un agent
 conversationnel via FastAPI.

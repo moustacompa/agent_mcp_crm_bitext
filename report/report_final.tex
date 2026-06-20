@@ -101,7 +101,8 @@
 \tableofcontents
 \newpage
 
-\section{Introduction}
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
 
 Ce rapport présente la finalisation du projet académique mini-projet INE\textbf{Agent MCP CRM Bitext}, un système conversationnel intelligent appliqué au domaine du support client et de la relation client. Le projet vise à concevoir un agent capable de comprendre un message utilisateur, d'identifier son intention, de router cette intention vers le bon outil métier, puis de produire une réponse adaptée.
 Il a été réalisé par les étudiants : 
@@ -125,7 +126,7 @@ L'objectif initial était de développer une solution agentique basée sur le \t
 
 Le projet a évolué progressivement depuis une première phase de conception et d'expérimentation dans un notebook, jusqu'à une version structurée sous forme de projet Python modulaire, avec scripts, API, interface graphique et documentation.
 
-\chapter{Contexte et objectif du projet}
+\chapter{Contexte, objectifs et données}
 
 Le contexte du projet est celui de l'automatisation intelligente du support client. Dans un service CRM, les utilisateurs peuvent exprimer plusieurs types de demandes :
 
@@ -152,11 +153,11 @@ Message utilisateur
 
 Cette architecture permet de séparer clairement la compréhension du message, la décision métier, l'exécution d'une action CRM et la génération de réponse. Cette séparation rend le système plus modulaire, plus testable et plus facilement améliorable.
 
-\chapter{Sélection et analyse des datasets}
+\section{Sélection et analyse des datasets}
 
 Au début du projet, plusieurs datasets ont été analysés afin de choisir la source de données la plus adaptée à un agent CRM.
 
-\section{Telco Customer Churn}
+\subsection{Telco Customer Churn}
 
 Le dataset \textbf{Telco Customer Churn} contient environ 7 043 clients et 21 variables structurées. Il est pertinent pour des tâches de prédiction du churn, c'est-à-dire l'identification des clients susceptibles de quitter un service.
 
@@ -168,13 +169,13 @@ predict_churn(customer_id)
 
 Ce dataset est utile pour enrichir le contexte CRM, mais il ne répond pas directement au besoin principal de classification d'intentions conversationnelles.
 
-\section{92k Call Center Scripts}
+\subsection{92k Call Center Scripts}
 
 Le dataset \textbf{92k Call Center Scripts} contient environ 91 706 transcripts réels de centres d'appels. Il offre une richesse conversationnelle importante et pourrait être utilisé pour construire une mémoire conversationnelle ou un système RAG.
 
 Son rôle potentiel était de servir de corpus documentaire pour enrichir les réponses de l'agent. Cependant, sa structure est moins directement exploitable pour un pipeline simple de classification d'intentions.
 
-\section{Bitext Customer Support Chatbot}
+\subsection{Bitext Customer Support Chatbot}
 
 Le dataset \textbf{Bitext Customer Support Chatbot} contient environ 26 900 paires instruction/réponse, réparties en 27 intentions et 11 catégories.
 
@@ -189,7 +190,7 @@ Il a été retenu comme dataset principal parce qu'il est directement aligné av
 
 Le dataset Bitext est donc devenu le pivot du projet.
 
-\chapter{Architecture générale de la solution}
+\chapter{Architecture et processus de réalisation}
 
 La solution finale repose sur une architecture modulaire organisée autour des composants suivants :
 
@@ -250,9 +251,9 @@ Le dossier \texttt{scripts/} contient les scripts d'exécution :
     \item \texttt{check\_ollama.py}.
 \end{itemize}
 
-\chapter{Étapes du processus de réalisation}
+\section{Étapes du processus de réalisation}
 
-\section{Étape 1 : téléchargement ou placement du dataset}
+\subsection{Étape 1 : téléchargement ou placement du dataset}
 
 Une contribution importante a été l'ajout du script :
 
@@ -276,7 +277,7 @@ Cette étape améliore la reproductibilité du projet, car l'utilisateur n'a plu
 
 \screenshotplaceholder{Capture 1 -- Téléchargement du dataset}{Exécution de \texttt{python scripts/download\_dataset.py}.}
 
-\section{Étape 2 : préparation des données}
+\subsection{Étape 2 : préparation des données}
 
 La préparation des données est réalisée avec :
 
@@ -307,7 +308,7 @@ data/bitext_val_formatted.jsonl
 
 \screenshotplaceholder{Capture 2 -- Préparation des données}{Exécution de \texttt{python scripts/prepare\_data.py} et génération des fichiers.}
 
-\section{Étape 3 : analyse exploratoire}
+\subsection{Étape 3 : analyse exploratoire}
 
 L'analyse exploratoire a permis d'étudier la distribution des intentions, les catégories, les flags comportementaux, les longueurs de textes et les templates présents dans les messages.
 
@@ -315,7 +316,7 @@ L'analyse exploratoire a permis d'étudier la distribution des intentions, les c
 \screenshotplaceholder{Capture 4 -- Distribution des longueurs de texte}{Graphique des longueurs des instructions et réponses.}
 \screenshotplaceholder{Capture 5 -- Matrice de confusion}{Fichier \texttt{confusion\_matrix.png}.}
 
-\chapter{Architecture MCP}
+\section{Architecture MCP}
 
 Le projet repose sur un mapping explicite entre les intentions du dataset Bitext et des tools MCP. Ce mapping est défini dans :
 
@@ -343,7 +344,7 @@ Ils sont actuellement simulés, mais fonctionnels. Ils retournent des dictionnai
 
 \screenshotplaceholder{Capture 6 -- Mapping intent vers tool MCP}{Extrait du mapping ou exemple d'appel d'un tool.}
 
-\chapter{Classificateur d'intentions}
+\chapter{Modèles de classification et génération}
 
 \section{Classificateur principal : TF-IDF + LogisticRegression}
 
@@ -381,7 +382,7 @@ Au départ, le projet envisageait un fine-tuning de modèle LLM, notamment avec 
 
 Or, l'environnement local disponible est principalement CPU. Le choix final a donc été d'utiliser \textbf{TF-IDF + LogisticRegression} pour la classification d'intentions, et de réserver Ollama à la reformulation de réponse.
 
-\chapter{Variante Transformer}
+\section{Variante Transformer}
 
 Le projet intègre également une variante Transformer optionnelle. Les fichiers concernés sont :
 
@@ -406,7 +407,7 @@ python scripts/train_transformer_classifier.py --model-name distilbert-base-unca
 
 Cette variante est intéressante pour expérimenter avec des modèles deep learning, mais elle reste plus lourde que TF-IDF.
 
-\chapter{Choix du modèle Ollama}
+\section{Choix du modèle Ollama}
 
 Le modèle Ollama recommandé dans la version finale est :
 
@@ -433,7 +434,7 @@ Le rôle d'Ollama dans la solution finale n'est pas de classifier l'intention. L
 
 \screenshotplaceholder{Capture 7 -- Vérification Ollama}{Vérification du modèle \texttt{qwen2.5:1.5b} installé localement.}
 
-\chapter{Agent CRM}
+\chapter{Agent, API et interface utilisateur}
 
 La classe principale de l'agent est :
 
@@ -461,7 +462,7 @@ Son rôle est d'orchestrer tout le pipeline :
 
 \screenshotplaceholder{Capture 8 -- Test de l'agent}{Test de l'agent en ligne de commande avec \texttt{scripts/demo\_agent.py}.}
 
-\chapter{API FastAPI}
+\section{API FastAPI}
 
 L'API est implémentée dans :
 
@@ -478,11 +479,11 @@ DELETE /session/{session_id}
 GET /intents
 \end{lstlisting}
 
-\section{Endpoint /health}
+\subsection{Endpoint /health}
 
 Cet endpoint permet de vérifier que l'API est active.
 
-\section{Endpoint /chat}
+\subsection{Endpoint /chat}
 
 Cet endpoint permet d'envoyer un message à l'agent CRM.
 
@@ -492,11 +493,11 @@ curl -X POST http://localhost:8000/chat ^
   -d "{\"message\":\"I want to cancel my order number 12345\",\"session_id\":\"demo\"}"
 \end{lstlisting}
 
-\section{Endpoint /intents}
+\subsection{Endpoint /intents}
 
 Cet endpoint permet de consulter la liste des intentions connues par le classificateur.
 
-\section{Gestion des sessions}
+\subsection{Gestion des sessions}
 
 L'API maintient des sessions en mémoire avec un dictionnaire Python. Cela permet de garder un historique conversationnel par session.
 
@@ -505,7 +506,7 @@ L'API maintient des sessions en mémoire avec un dictionnaire Python. Cela perme
 \screenshotplaceholder{Capture 11 -- Test du endpoint /chat}{Requête de test d'un message client.}
 \screenshotplaceholder{Capture 12 -- Liste des intents}{Résultat du endpoint \texttt{/intents}.}
 
-\chapter{Interface Streamlit}
+\section{Interface Streamlit}
 
 Une contribution importante de finalisation a été l'ajout d'une interface utilisateur interactive avec Streamlit. Le fichier concerné est :
 
@@ -515,7 +516,7 @@ streamlit_app.py
 
 Cette interface permet de rendre le système plus accessible, plus démontrable et plus compréhensible. Elle est connectée à l'API FastAPI et permet de tester le pipeline complet sans passer par la ligne de commande.
 
-\section{Fonctionnalités principales}
+\subsection{Fonctionnalités principales}
 
 L'interface permet :
 
@@ -534,15 +535,15 @@ L'interface permet :
     \item d'exporter l'historique au format CSV.
 \end{itemize}
 
-\section{Seuil de confiance}
+\subsection{Seuil de confiance}
 
 L'interface intègre un seuil de confiance configurable, fixé par défaut à 0.70. Si le score de confiance est inférieur à ce seuil, l'interface recommande une redirection vers un agent humain.
 
-\section{Dashboard de session}
+\subsection{Dashboard de session}
 
 Un dashboard permet de suivre le nombre de messages analysés, la confiance moyenne, le nombre d'intentions détectées, le nombre de cas nécessitant une escalade, la répartition des intentions et l'historique technique.
 
-\section{Exemple de test}
+\subsection{Exemple de test}
 
 Un exemple de test concluant a été réalisé avec le message :
 
@@ -560,7 +561,7 @@ Le système a détecté l'intention \texttt{cancel\_order} et a appelé le tool 
 \screenshotplaceholder{Capture 18 -- Dashboard Streamlit}{Statistiques de session.}
 \screenshotplaceholder{Capture 19 -- Export CSV}{Bouton de téléchargement de l'historique.}
 
-\chapter{Dépendances et environnements}
+\chapter{Dépendances et déploiement}
 
 Deux fichiers de dépendances sont disponibles.
 
@@ -572,9 +573,9 @@ Ce fichier contient les dépendances complètes, notamment \texttt{pandas}, \tex
 
 Ce fichier contient une version plus légère pour l'API et l'interface Streamlit. Il est plus adapté aux machines à ressources limitées lorsqu'on ne souhaite pas entraîner de modèle Transformer.
 
-\chapter{Déploiement}
+\section{Déploiement}
 
-\section{Lancement local}
+\subsection{Lancement local}
 
 Pour lancer l'API :
 
@@ -588,14 +589,14 @@ Pour lancer Streamlit :
 streamlit run streamlit_app.py
 \end{lstlisting}
 
-\section{Mode sans Ollama}
+\subsection{Mode sans Ollama}
 
 \begin{lstlisting}
 $env:CRM_AGENT_USE_OLLAMA="false"
 uvicorn api:app --reload --port 8000
 \end{lstlisting}
 
-\section{Mode avec Ollama}
+\subsection{Mode avec Ollama}
 
 \begin{lstlisting}
 ollama serve
@@ -603,7 +604,7 @@ ollama pull qwen2.5:1.5b
 uvicorn api:app --reload --port 8000
 \end{lstlisting}
 
-\section{Docker}
+\subsection{Docker}
 
 \begin{lstlisting}
 docker build -t agent-crm .
@@ -615,7 +616,7 @@ docker run -p 8000:8000 -e CRM_AGENT_USE_OLLAMA=false agent-crm
 \screenshotplaceholder{Capture 22 -- Build Docker}{Commande \texttt{docker build}.}
 \screenshotplaceholder{Capture 23 -- Conteneur Docker}{Commande \texttt{docker run}.}
 
-\chapter{Évaluation du projet}
+\chapter{Évaluation, bilan et perspectives}
 
 \section{Évaluation du classificateur}
 
@@ -645,9 +646,9 @@ Les cas limites prévus incluent :
     \item absence de numéro de commande.
 \end{itemize}
 
-\chapter{État final d'avancement}
+\section{État final d'avancement}
 
-\section{Éléments finalisés}
+\subsection{Éléments finalisés}
 
 \begin{itemize}
     \item Le notebook initial a été transformé en projet Python modulaire.
@@ -667,7 +668,7 @@ Les cas limites prévus incluent :
     \item La documentation README a été structurée en étapes.
 \end{itemize}
 
-\section{Éléments partiellement réalisés}
+\subsection{Éléments partiellement réalisés}
 
 \begin{itemize}
     \item Le fine-tuning complet d'un LLM avec QLoRA n'a pas été retenu pour l'exécution locale CPU.
@@ -677,7 +678,7 @@ Les cas limites prévus incluent :
     \item La persistance des sessions est en mémoire, sans Redis ou base de données.
 \end{itemize}
 
-\chapter{Limites actuelles}
+\section{Limites actuelles}
 
 Le projet reste perfectible sur plusieurs points :
 
@@ -690,7 +691,7 @@ Le projet reste perfectible sur plusieurs points :
     \item l'interface Streamlit pourrait encore exposer plus d'options de configuration.
 \end{itemize}
 
-\chapter{Perspectives d'amélioration}
+\section{Perspectives d'amélioration}
 
 Plusieurs pistes sont possibles pour faire évoluer le projet :
 
@@ -706,7 +707,7 @@ Plusieurs pistes sont possibles pour faire évoluer le projet :
     \item tester DistilBERT ou une architecture embeddings.
 \end{itemize}
 
-\chapter{Liste des captures d'écran à intégrer}
+\section{Liste des captures d'écran à intégrer}
 
 \begin{longtable}{|p{0.15\textwidth}|p{0.75\textwidth}|}
 \hline
@@ -756,7 +757,8 @@ Plusieurs pistes sont possibles pour faire évoluer le projet :
 \hline
 \end{longtable}
 
-\chapter{Conclusion générale}
+\chapter*{Conclusion générale}
+\addcontentsline{toc}{chapter}{Conclusion générale}
 
 Le projet \textbf{Agent MCP CRM Bitext} a évolué d'un notebook expérimental vers une application modulaire complète. La solution finale permet de traiter des messages clients, de détecter leur intention, d'appeler un tool CRM correspondant, puis de produire une réponse exploitable.
 
@@ -776,7 +778,8 @@ Les contributions finales ont permis de renforcer la reproductibilité, l'ergono
 
 Même si certains points restent perfectibles, notamment l'intégration d'un vrai CRM et la gestion des intentions multiples, la version actuelle constitue une base solide pour une solution agentique CRM locale et extensible.
 
-\chapter{Résumé final}
+\section*{Résumé final}
+\addcontentsline{toc}{section}{Résumé final}
 
 Le projet finalisé peut être résumé ainsi :
 

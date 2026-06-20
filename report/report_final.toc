@@ -1,52 +1,52 @@
 \babel@toc {french}{}\relax 
-\contentsline {section}{\numberline {0.1}Introduction}{3}{section.0.1}%
-\contentsline {chapter}{\numberline {1}Contexte et objectif du projet}{4}{chapter.1}%
-\contentsline {chapter}{\numberline {2}Sélection et analyse des datasets}{5}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Telco Customer Churn}{5}{section.2.1}%
-\contentsline {section}{\numberline {2.2}92k Call Center Scripts}{5}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Bitext Customer Support Chatbot}{5}{section.2.3}%
-\contentsline {chapter}{\numberline {3}Architecture générale de la solution}{7}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Dossier data}{7}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Dossier src}{7}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Dossier scripts}{8}{section.3.3}%
-\contentsline {chapter}{\numberline {4}Étapes du processus de réalisation}{9}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Étape 1 : téléchargement ou placement du dataset}{9}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Étape 2 : préparation des données}{9}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Étape 3 : analyse exploratoire}{10}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Architecture MCP}{12}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Classificateur d'intentions}{13}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Classificateur principal : TF-IDF + LogisticRegression}{13}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Justification du choix}{13}{section.6.2}%
-\contentsline {chapter}{\numberline {7}Variante Transformer}{14}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Choix du modèle Ollama}{15}{chapter.8}%
-\contentsline {chapter}{\numberline {9}Agent CRM}{16}{chapter.9}%
-\contentsline {chapter}{\numberline {10}API FastAPI}{17}{chapter.10}%
-\contentsline {section}{\numberline {10.1}Endpoint /health}{17}{section.10.1}%
-\contentsline {section}{\numberline {10.2}Endpoint /chat}{17}{section.10.2}%
-\contentsline {section}{\numberline {10.3}Endpoint /intents}{17}{section.10.3}%
-\contentsline {section}{\numberline {10.4}Gestion des sessions}{17}{section.10.4}%
-\contentsline {chapter}{\numberline {11}Interface Streamlit}{20}{chapter.11}%
-\contentsline {section}{\numberline {11.1}Fonctionnalités principales}{20}{section.11.1}%
-\contentsline {section}{\numberline {11.2}Seuil de confiance}{20}{section.11.2}%
-\contentsline {section}{\numberline {11.3}Dashboard de session}{21}{section.11.3}%
-\contentsline {section}{\numberline {11.4}Exemple de test}{21}{section.11.4}%
-\contentsline {chapter}{\numberline {12}Dépendances et environnements}{24}{chapter.12}%
-\contentsline {section}{\numberline {12.1}requirements.txt}{24}{section.12.1}%
-\contentsline {section}{\numberline {12.2}requirements\_light.txt}{24}{section.12.2}%
-\contentsline {chapter}{\numberline {13}Déploiement}{25}{chapter.13}%
-\contentsline {section}{\numberline {13.1}Lancement local}{25}{section.13.1}%
-\contentsline {section}{\numberline {13.2}Mode sans Ollama}{25}{section.13.2}%
-\contentsline {section}{\numberline {13.3}Mode avec Ollama}{25}{section.13.3}%
-\contentsline {section}{\numberline {13.4}Docker}{25}{section.13.4}%
-\contentsline {chapter}{\numberline {14}Évaluation du projet}{28}{chapter.14}%
-\contentsline {section}{\numberline {14.1}Évaluation du classificateur}{28}{section.14.1}%
-\contentsline {section}{\numberline {14.2}Tests fonctionnels}{28}{section.14.2}%
-\contentsline {section}{\numberline {14.3}Tests de cas limites}{28}{section.14.3}%
-\contentsline {chapter}{\numberline {15}État final d'avancement}{29}{chapter.15}%
-\contentsline {section}{\numberline {15.1}Éléments finalisés}{29}{section.15.1}%
-\contentsline {section}{\numberline {15.2}Éléments partiellement réalisés}{29}{section.15.2}%
-\contentsline {chapter}{\numberline {16}Limites actuelles}{30}{chapter.16}%
-\contentsline {chapter}{\numberline {17}Perspectives d'amélioration}{31}{chapter.17}%
-\contentsline {chapter}{\numberline {18}Liste des captures d'écran à intégrer}{32}{chapter.18}%
-\contentsline {chapter}{\numberline {19}Conclusion générale}{33}{chapter.19}%
-\contentsline {chapter}{\numberline {20}Résumé final}{34}{chapter.20}%
+\contentsline {chapter}{Introduction}{3}{chapter*.2}%
+\contentsline {chapter}{\numberline {1}Contexte, objectifs et données}{4}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Sélection et analyse des datasets}{4}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Telco Customer Churn}{4}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}92k Call Center Scripts}{5}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}Bitext Customer Support Chatbot}{5}{subsection.1.1.3}%
+\contentsline {chapter}{\numberline {2}Architecture et processus de réalisation}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Dossier data}{6}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Dossier src}{6}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Dossier scripts}{7}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Étapes du processus de réalisation}{7}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Étape 1 : téléchargement ou placement du dataset}{7}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Étape 2 : préparation des données}{8}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Étape 3 : analyse exploratoire}{8}{subsection.2.4.3}%
+\contentsline {section}{\numberline {2.5}Architecture MCP}{9}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Modèles de classification et génération}{11}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Classificateur principal : TF-IDF + LogisticRegression}{11}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Justification du choix}{11}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Variante Transformer}{11}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Choix du modèle Ollama}{12}{section.3.4}%
+\contentsline {chapter}{\numberline {4}Agent, API et interface utilisateur}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}API FastAPI}{13}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Endpoint /health}{14}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Endpoint /chat}{14}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Endpoint /intents}{14}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}Gestion des sessions}{14}{subsection.4.1.4}%
+\contentsline {section}{\numberline {4.2}Interface Streamlit}{15}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Fonctionnalités principales}{16}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Seuil de confiance}{16}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Dashboard de session}{16}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Exemple de test}{16}{subsection.4.2.4}%
+\contentsline {chapter}{\numberline {5}Dépendances et déploiement}{20}{chapter.5}%
+\contentsline {section}{\numberline {5.1}requirements.txt}{20}{section.5.1}%
+\contentsline {section}{\numberline {5.2}requirements\_light.txt}{20}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Déploiement}{20}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Lancement local}{20}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Mode sans Ollama}{20}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Mode avec Ollama}{21}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Docker}{21}{subsection.5.3.4}%
+\contentsline {chapter}{\numberline {6}Évaluation, bilan et perspectives}{23}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Évaluation du classificateur}{23}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Tests fonctionnels}{23}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Tests de cas limites}{23}{section.6.3}%
+\contentsline {section}{\numberline {6.4}État final d'avancement}{23}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Éléments finalisés}{23}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Éléments partiellement réalisés}{24}{subsection.6.4.2}%
+\contentsline {section}{\numberline {6.5}Limites actuelles}{24}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Perspectives d'amélioration}{24}{section.6.6}%
+\contentsline {section}{\numberline {6.7}Liste des captures d'écran à intégrer}{25}{section.6.7}%
+\contentsline {chapter}{Conclusion générale}{26}{chapter*.3}%
+\contentsline {section}{Résumé final}{26}{section*.4}%

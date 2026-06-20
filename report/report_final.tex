@@ -275,7 +275,7 @@ data/Bitext_Sample_Customer_Support_Training_Dataset_27K_responses-v11_1.csv
 
 Cette étape améliore la reproductibilité du projet, car l'utilisateur n'a plus besoin de placer manuellement le fichier CSV dans le dossier \texttt{data/}.
 
-\screenshotplaceholder{Capture 1 -- Téléchargement du dataset}{Exécution de \texttt{python scripts/download\_dataset.py}.}
+\includegraphics{screenshoot/telechargement.png}
 
 \subsection{Étape 2 : préparation des données}
 
@@ -306,15 +306,19 @@ data/bitext_train_formatted.jsonl
 data/bitext_val_formatted.jsonl
 \end{lstlisting}
 
-\screenshotplaceholder{Capture 2 -- Préparation des données}{Exécution de \texttt{python scripts/prepare\_data.py} et génération des fichiers.}
+\includegraphics{screenshoot/preparation.png}
 
 \subsection{Étape 3 : analyse exploratoire}
 
 L'analyse exploratoire a permis d'étudier la distribution des intentions, les catégories, les flags comportementaux, les longueurs de textes et les templates présents dans les messages.
 
-\screenshotplaceholder{Capture 3 -- Distribution des catégories et des intentions}{Graphique d'analyse exploratoire du dataset.}
-\screenshotplaceholder{Capture 4 -- Distribution des longueurs de texte}{Graphique des longueurs des instructions et réponses.}
-\screenshotplaceholder{Capture 5 -- Matrice de confusion}{Fichier \texttt{confusion\_matrix.png}.}
+% \screenshotplaceholder{Capture 3 -- Distribution des catégories et des intentions}{Graphique d'analyse exploratoire du dataset.}
+\includegraphics{distribution_dataset.png}
+
+% \screenshotplaceholder{Capture 4 -- Distribution des longueurs de texte}{Graphique des longueurs des instructions et réponses.}
+\includegraphics{longueurs_texte.png}
+
+\includegraphics{confusion_matrix.png}
 
 \section{Architecture MCP}
 
@@ -342,7 +346,8 @@ src/tools.py
 
 Ils sont actuellement simulés, mais fonctionnels. Ils retournent des dictionnaires Python représentant des réponses CRM.
 
-\screenshotplaceholder{Capture 6 -- Mapping intent vers tool MCP}{Extrait du mapping ou exemple d'appel d'un tool.}
+% \screenshotplaceholder{Capture 6 -- Mapping intent vers tool MCP}{Extrait du mapping ou exemple d'appel d'un tool.}
+\includegraphics{screenshoot/mapping.png}
 
 \chapter{Modèles de classification et génération}
 
@@ -432,7 +437,8 @@ FALLBACK_OLLAMA_MODEL = "qwen2.5:1.5b"
 
 Le rôle d'Ollama dans la solution finale n'est pas de classifier l'intention. La classification est assurée par TF-IDF ou Transformer. Ollama sert uniquement à produire ou reformuler une réponse plus naturelle.
 
-\screenshotplaceholder{Capture 7 -- Vérification Ollama}{Vérification du modèle \texttt{qwen2.5:1.5b} installé localement.}
+% \screenshotplaceholder{Capture 7 -- Vérification Ollama}{Vérification du modèle \texttt{qwen2.5:1.5b} installé localement.}
+\includegraphics{screenshoot/verification.png}
 
 \chapter{Agent, API et interface utilisateur}
 
@@ -460,7 +466,8 @@ Son rôle est d'orchestrer tout le pipeline :
     \item stocker l'historique de conversation.
 \end{enumerate}
 
-\screenshotplaceholder{Capture 8 -- Test de l'agent}{Test de l'agent en ligne de commande avec \texttt{scripts/demo\_agent.py}.}
+% \screenshotplaceholder{Capture 8 -- Test de l'agent}{Test de l'agent en ligne de commande avec \texttt{scripts/demo\_agent.py}.}
+\includegraphics{screenshoot/test_agent.png}
 
 \section{API FastAPI}
 
@@ -501,10 +508,14 @@ Cet endpoint permet de consulter la liste des intentions connues par le classifi
 
 L'API maintient des sessions en mémoire avec un dictionnaire Python. Cela permet de garder un historique conversationnel par session.
 
-\screenshotplaceholder{Capture 9 -- Lancement de l'API}{Terminal avec \texttt{uvicorn api:app --reload --port 8000}.}
-\screenshotplaceholder{Capture 10 -- Swagger FastAPI}{Interface \texttt{/docs}.}
-\screenshotplaceholder{Capture 11 -- Test du endpoint /chat}{Requête de test d'un message client.}
-\screenshotplaceholder{Capture 12 -- Liste des intents}{Résultat du endpoint \texttt{/intents}.}
+% \screenshotplaceholder{Capture 9 -- Lancement de l'API}{Terminal avec \texttt{uvicorn api:app --reload --port 8000}.}
+\includegraphics{screenshoot/api.png}
+% \screenshotplaceholder{Capture 10 -- Swagger FastAPI}{Interface \texttt{/docs}.}
+\includegraphics{screenshoot/api.png}
+% \screenshotplaceholder{Capture 11 -- Test du endpoint /chat}{Requête de test d'un message client.}
+\includegraphics{screenshoot/api.png}
+% \screenshotplaceholder{Capture 12 -- Liste des intents}{Résultat du endpoint \texttt{/intents}.}
+\includegraphics{screenshoot/api.png}
 
 \section{Interface Streamlit}
 
@@ -553,13 +564,20 @@ I want to cancel my order number 12345
 
 Le système a détecté l'intention \texttt{cancel\_order} et a appelé le tool \texttt{cancel\_order}.
 
-\screenshotplaceholder{Capture 13 -- Interface Streamlit}{Page d'accueil de l'interface.}
-\screenshotplaceholder{Capture 14 -- Configuration API}{Sidebar avec URL API, session ID et état de connexion.}
-\screenshotplaceholder{Capture 15 -- Message client}{Saisie d'un message client.}
-\screenshotplaceholder{Capture 16 -- Résultat de classification}{Intent, score de confiance et niveau.}
-\screenshotplaceholder{Capture 17 -- Tool MCP appelé}{Affichage du tool appelé et du résultat technique.}
-\screenshotplaceholder{Capture 18 -- Dashboard Streamlit}{Statistiques de session.}
-\screenshotplaceholder{Capture 19 -- Export CSV}{Bouton de téléchargement de l'historique.}
+% \screenshotplaceholder{Capture 13 -- Interface Streamlit}{Page d'accueil de l'interface.}
+\includegraphics{screenshoot/streamlit.png}
+% \screenshotplaceholder{Capture 14 -- Configuration API}{Sidebar avec URL API, session ID et état de connexion.}
+\includegraphics{screenshoot/config_api.png}
+% \screenshotplaceholder{Capture 15 -- Message client}{Saisie d'un message client.}
+\includegraphics{screenshoot/client_msg.png}
+% \screenshotplaceholder{Capture 16 -- Résultat de classification}{Intent, score de confiance et niveau.}
+\includegraphics{screenshoot/result_msg.png}
+% \screenshotplaceholder{Capture 17 -- Tool MCP appelé}{Affichage du tool appelé et du résultat technique.}
+\includegraphics{screenshoot/result_techn.png}
+% \screenshotplaceholder{Capture 18 -- Dashboard Streamlit}{Statistiques de session.}
+\includegraphics{screenshoot/stat_session.png}
+% \screenshotplaceholder{Capture 19 -- Export CSV}{Bouton de téléchargement de l'historique.}
+\includegraphics{screenshoot/export_excel.png}
 
 \chapter{Dépendances et déploiement}
 
@@ -611,10 +629,14 @@ docker build -t agent-crm .
 docker run -p 8000:8000 -e CRM_AGENT_USE_OLLAMA=false agent-crm
 \end{lstlisting}
 
-\screenshotplaceholder{Capture 20 -- Lancement FastAPI}{Terminal de lancement de FastAPI.}
-\screenshotplaceholder{Capture 21 -- Lancement Streamlit}{Terminal de lancement de Streamlit.}
-\screenshotplaceholder{Capture 22 -- Build Docker}{Commande \texttt{docker build}.}
-\screenshotplaceholder{Capture 23 -- Conteneur Docker}{Commande \texttt{docker run}.}
+% \screenshotplaceholder{Capture 20 -- Lancement FastAPI}{Terminal de lancement de FastAPI.}
+% \includegraphics{screenshoot/export_excel.png}
+% \screenshotplaceholder{Capture 21 -- Lancement Streamlit}{Terminal de lancement de Streamlit.}
+% \includegraphics{screenshoot/export_excel.png}
+% \screenshotplaceholder{Capture 22 -- Build Docker}{Commande \texttt{docker build}.}
+% \includegraphics{screenshoot/export_excel.png}
+% \screenshotplaceholder{Capture 23 -- Conteneur Docker}{Commande \texttt{docker run}.}
+% \includegraphics{screenshoot/export_excel.png}
 
 \chapter{Évaluation, bilan et perspectives}
 
